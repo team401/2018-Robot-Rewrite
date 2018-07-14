@@ -1,10 +1,43 @@
 apply plugin: "org.snakeskin.snakeskin-gradle"
+apply plugin: "edu.wpi.first.GradleRIO"
+
+deploy {
+    targets {
+        target("rio", edu.wpi.first.gradlerio.frc.RoboRIO) {
+            team = 401
+        }
+    }
+    artifacts {
+        artifact("robot2018", edu.wpi.first.gradlerio.frc.FRCJavaArtifact) {
+            targets << "rio"
+            jar = "jar"
+        }
+    }
+}
+
+wpi {
+    wpilibVersion = '2018.3.3'
+    ctreVersion = '5.3.1.0'
+}
 
 dependencies {
+    compile wpilib()
+    compile ctre()
+
+    compile openrio.powerup.matchData()
+
     compile project(":autolib")
 
     compile "com.github.team401.snakeskin:SnakeSkin-Core:$SNAKESKIN_COMMIT"
     kapt "com.github.team401.snakeskin:SnakeSkin-Core:$SNAKESKIN_COMMIT"
     compile "com.github.team401.snakeskin:SnakeSkin-FRC:$SNAKESKIN_COMMIT"
     compile "com.github.team401.snakeskin:SnakeSkin-CTRE:$SNAKESKIN_COMMIT"
+}
+
+
+jar {
+    manifest {
+        attributes 'Main-Class': "org.team401.rewrite2018.SetupKt"//org.snakeskin.gradle.Constants.FRC_MAIN_CLASS
+        attributes 'Robot-Class': org.snakeskin.gradle.Constants.FRC_ROBOT_CLASS
+    }
 }

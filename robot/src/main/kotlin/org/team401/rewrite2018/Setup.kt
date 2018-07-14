@@ -1,5 +1,6 @@
 package org.team401.rewrite2018
 
+import org.snakeskin.InitManager
 import org.snakeskin.dsl.*
 
 /**
@@ -10,5 +11,5 @@ import org.snakeskin.dsl.*
 
 @Setup
 fun setup() {
-
+    println("setup!")
 }

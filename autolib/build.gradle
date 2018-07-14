@@ -1,4 +1,18 @@
+apply plugin: "edu.wpi.first.GradleRIO"
+
+
+
+wpi {
+    wpilibVersion = '2018.3.3'
+    ctreVersion = '5.3.1.0'
+}
+
 dependencies {
+    compileOnly wpilib()
+
+    // https://mvnrepository.com/artifact/gov.nist.math/jama
+    compile group: 'gov.nist.math', name: 'jama', version: '1.0.3'
+
     compileOnly "com.github.team401.snakeskin:SnakeSkin-Core:$SNAKESKIN_COMMIT"
     compileOnly "com.github.team401.snakeskin:SnakeSkin-FRC:$SNAKESKIN_COMMIT"
     compileOnly "com.github.team401.snakeskin:SnakeSkin-CTRE:$SNAKESKIN_COMMIT"
