@@ -1,0 +1,10 @@
+apply plugin: "org.snakeskin.snakeskin-gradle"
+
+dependencies {
+    compile project(":autolib")
+
+    compile "com.github.team401.snakeskin:SnakeSkin-Core:$SNAKESKIN_COMMIT"
+    kapt "com.github.team401.snakeskin:SnakeSkin-Core:$SNAKESKIN_COMMIT"
+    compile "com.github.team401.snakeskin:SnakeSkin-FRC:$SNAKESKIN_COMMIT"
+    compile "com.github.team401.snakeskin:SnakeSkin-CTRE:$SNAKESKIN_COMMIT"
+}

@@ -1,0 +1,5 @@
+dependencies {
+    compileOnly "com.github.team401.snakeskin:SnakeSkin-Core:$SNAKESKIN_COMMIT"
+    compileOnly "com.github.team401.snakeskin:SnakeSkin-FRC:$SNAKESKIN_COMMIT"
+    compileOnly "com.github.team401.snakeskin:SnakeSkin-CTRE:$SNAKESKIN_COMMIT"
+}

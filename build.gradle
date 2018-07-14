@@ -1,12 +1,14 @@
 plugins {
 	id "edu.wpi.first.GradleRIO" version "2018.06.21" apply false
-	id "org.jetbrains.kotlin.jvm" version "1.2.51" apply false
+	id "org.jetbrains.kotlin.jvm" version "1.2.40" apply false
 	id "org.snakeskin.snakeskin-gradle" version "1.1" apply false
 }
 
 allprojects {
 	apply plugin: "idea"
 }
+
+project.ext.SNAKESKIN_COMMIT = "792e31b"
 
 subprojects {
 	apply plugin: "java"
@@ -16,6 +18,10 @@ subprojects {
 	
 	repositories {
 		mavenCentral()
+
+        maven {
+            url 'https://jitpack.io' //For building against latest SnakeSkin
+        }
 	}
 	
 	dependencies {
