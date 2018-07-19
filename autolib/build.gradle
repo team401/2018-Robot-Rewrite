@@ -9,6 +9,7 @@ wpi {
 
 dependencies {
     compileOnly wpilib()
+    compileOnly ctre()
 
     // https://mvnrepository.com/artifact/gov.nist.math/jama
     compile group: 'gov.nist.math', name: 'jama', version: '1.0.3'

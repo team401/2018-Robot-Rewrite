@@ -34,10 +34,10 @@ dependencies {
     compile "com.github.team401.snakeskin:SnakeSkin-CTRE:$SNAKESKIN_COMMIT"
 }
 
-
+//Since we're not applying modules with the snakeskin plugin, we still need this
 jar {
     manifest {
-        attributes 'Main-Class': "org.team401.rewrite2018.SetupKt"//org.snakeskin.gradle.Constants.FRC_MAIN_CLASS
+        attributes 'Main-Class': org.snakeskin.gradle.Constants.FRC_MAIN_CLASS
         attributes 'Robot-Class': org.snakeskin.gradle.Constants.FRC_ROBOT_CLASS
     }
 }
