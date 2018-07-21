@@ -1,11 +1,13 @@
 package org.team401.rewrite2018
 
 import org.snakeskin.dsl.*
-import org.snakeskin.event.Events
+import org.snakeskin.registry.Controllers
 import org.snakeskin.registry.RealTimeTasks
 import org.snakeskin.rt.RealTimeExecutor
-import org.snakeskin.rt.RealTimeTask
-import org.snakeskin.state.StateMachine
+import org.team401.autolib.RobotStateUpdater
+import org.team401.rewrite2018.constants.CompBotMeasurements
+import org.team401.rewrite2018.constants.IMeasurements
+import org.team401.rewrite2018.subsystems.Drivetrain
 
 /**
  * @author Cameron Earle
@@ -13,31 +15,15 @@ import org.snakeskin.state.StateMachine
  *
  */
 
-object MySub: Subsystem("mySub") {
-    override fun setup() {
-        on (Events.ENABLED) {
-            println("ENABLED START")
-            myMachine.setState(States.TEST1)
-            println("ENABLED DONE")
-        }
-    }
-
-    enum class States {
-        TEST1,
-        TEST2
-    }
-
-    val myMachine: StateMachine<States> = stateMachine {
-        state(States.TEST1) {
-            action {
-                println("entered state")
-            }
-        }
-    }
-}
+//Practice / Comp selectors
+val Measurements: IMeasurements = CompBotMeasurements()
 
 @Setup
 fun setup() {
     RealTimeExecutor.rate = .005
-    Subsystems.add(MySub)
+
+    Controllers.add(LeftStick, RightStick)
+    Subsystems.add(Drivetrain)
+
+    RealTimeTasks.add(RobotStateUpdater(Drivetrain, RobotState, Kinematics))
 }

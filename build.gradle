@@ -8,7 +8,7 @@ allprojects {
 	apply plugin: "idea"
 }
 
-project.ext.SNAKESKIN_COMMIT = "9998fad923eb346ac1d81e27a4934709b16c3179"
+project.ext.SNAKESKIN_COMMIT = "75985179e2e61c98aa78ef8bd020392931247cd9"
 
 subprojects {
 	apply plugin: "java"
