@@ -126,7 +126,7 @@ object Drivetrain: Subsystem("Drivetrain"), TankDrivetrain by SmartTankDrivetrai
                         cheesyParameters,
                         LeftStick.readAxis { PITCH },
                         RightStick.readAxis { ROLL },
-                        shifter.get(),
+                        shifter.get() == ShifterStates.HIGH,
                         RightStick.readButton { TRIGGER }
                 )
             }

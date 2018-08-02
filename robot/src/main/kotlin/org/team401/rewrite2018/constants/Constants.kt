@@ -33,4 +33,17 @@ object Constants {
         const val SHIFTER_EXTENDED_FOR_LOW_GEAR = true
         const val SOLENOID_ON_FOR_SHIFTER_EXTENDED = true
     }
+
+    object Elevator {
+        const val ELEVATOR_MASTER_CAN = 7
+        const val ELEVATOR_SLAVE_1_CAN = 10
+        const val ELEVATOR_SLAVE_2_CAN = 9
+        const val ELEVATOR_SLAVE_3_CAN = 8
+    }
+
+    object Intake {
+        const val INTAKE_LEFT_CAN = 5
+        const val INTAKE_RIGHT_CAN = 6
+        const val INTAKE_FOLDING_CAN = 4
+    }
 }

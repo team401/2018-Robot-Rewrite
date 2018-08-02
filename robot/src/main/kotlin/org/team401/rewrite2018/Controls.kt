@@ -22,3 +22,7 @@ val LeftStick = HumanControls.t16000m(0) {
 }
 
 val RightStick = HumanControls.t16000m(1)
+
+val Gamepad = HumanControls.f310(2) {
+
+}
