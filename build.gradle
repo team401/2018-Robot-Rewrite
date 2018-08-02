@@ -8,8 +8,6 @@ allprojects {
 	apply plugin: "idea"
 }
 
-project.ext.SNAKESKIN_COMMIT = "48dbd2f2570a5f03bc9832d717fb6df3f0b2141c"
-
 subprojects {
 	apply plugin: "java"
 	apply plugin: "kotlin"
@@ -18,10 +16,6 @@ subprojects {
 	
 	repositories {
 		mavenCentral()
-
-        maven {
-            url 'https://jitpack.io' //For building against latest SnakeSkin
-        }
 	}
 	
 	dependencies {

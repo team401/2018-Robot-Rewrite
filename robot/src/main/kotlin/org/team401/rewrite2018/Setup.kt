@@ -1,5 +1,6 @@
 package org.team401.rewrite2018
 
+import org.snakeskin.debug.DebuggerShell
 import org.snakeskin.dsl.*
 import org.snakeskin.registry.Controllers
 import org.snakeskin.registry.RealTimeTasks
@@ -20,6 +21,8 @@ val Measurements: IMeasurements = CompBotMeasurements()
 
 @Setup
 fun setup() {
+    DebuggerShell.basePackage = "org.team401.rewrite2018"
+
     RealTimeExecutor.rate = .005
 
     Controllers.add(LeftStick, RightStick)

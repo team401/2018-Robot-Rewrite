@@ -7,6 +7,12 @@ wpi {
     ctreVersion = '5.3.1.0'
 }
 
+repositories {
+    maven {
+        url "https://dl.bintray.com/team401/SnakeSkin"
+    }
+}
+
 dependencies {
     compileOnly wpilib()
     compileOnly ctre()
@@ -14,7 +20,7 @@ dependencies {
     // https://mvnrepository.com/artifact/gov.nist.math/jama
     compile group: 'gov.nist.math', name: 'jama', version: '1.0.3'
 
-    compileOnly "com.github.team401.snakeskin:SnakeSkin-Core:$SNAKESKIN_COMMIT"
-    compileOnly "com.github.team401.snakeskin:SnakeSkin-FRC:$SNAKESKIN_COMMIT"
-    compileOnly "com.github.team401.snakeskin:SnakeSkin-CTRE:$SNAKESKIN_COMMIT"
+    compileOnly "org.snakeskin:SnakeSkin-Core:2.0b1"
+    compileOnly "org.snakeskin:SnakeSkin-FRC:2.0b1"
+    compileOnly "org.snakeskin:SnakeSkin-CTRE:2.0b1"
 }

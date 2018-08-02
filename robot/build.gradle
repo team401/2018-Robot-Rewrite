@@ -27,19 +27,13 @@ dependencies {
     compile openrio.powerup.matchData()
 
     compile project(":autolib")
-
-    compile "com.github.team401.snakeskin:SnakeSkin-Core:$SNAKESKIN_COMMIT"
-    kapt "com.github.team401.snakeskin:SnakeSkin-Core:$SNAKESKIN_COMMIT"
-    compile "com.github.team401.snakeskin:SnakeSkin-FRC:$SNAKESKIN_COMMIT"
-    compile "com.github.team401.snakeskin:SnakeSkin-CTRE:$SNAKESKIN_COMMIT"
-
-    compile group: 'org.codehaus.groovy', name: 'groovy-all', version: '2.5.1'
 }
 
-//Since we're not applying modules with the snakeskin plugin, we still need this
-jar {
-    manifest {
-        attributes 'Main-Class': org.snakeskin.gradle.Constants.FRC_MAIN_CLASS
-        attributes 'Robot-Class': org.snakeskin.gradle.Constants.FRC_ROBOT_CLASS
+snakeskin {
+    version "2.0b1"
+    modules {
+        core()
+        frc()
+        ctre()
     }
 }
