@@ -16,7 +16,7 @@ import org.snakeskin.units.LinearVelocityUnit
  *
  */
 
-class RobotStateUpdater(val drivetrain: TankDrivetrain<*, *>, val robotState: RobotState, val kinematics: Kinematics): RealTimeTask {
+class RobotStateUpdater(val drivetrain: TankDrivetrain, val robotState: RobotState, val kinematics: Kinematics): RealTimeTask {
     override val name = "RobotStateUpdater"
 
     private val left = drivetrain.left

@@ -17,7 +17,7 @@ import org.snakeskin.component.TankDrivetrain
  * which will be wrapped by an AutoStep for easy use in autonomous
  */
 
-class PathRunner(val drivetrain: TankDrivetrain<*, *>, val robotState: RobotState, val kinematics: Kinematics, val parameters: PathFollower.Parameters, val maxVelocitySetpoint: Double) {
+class PathRunner(val drivetrain: TankDrivetrain, val robotState: RobotState, val kinematics: Kinematics, val parameters: PathFollower.Parameters, val maxVelocitySetpoint: Double) {
     val left = drivetrain.left.master
     val right = drivetrain.right.master
 

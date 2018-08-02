@@ -13,10 +13,10 @@ val LeftStick = HumanControls.t16000m(0) {
 
     whenButton(Buttons.TRIGGER) {
         pressed {
-            Drivetrain.shiftMachine.setState(Drivetrain.ShifterStates.LOW)
+            Drivetrain.shift(Drivetrain.ShifterStates.HIGH)
         }
         released {
-            Drivetrain.shiftMachine.setState(Drivetrain.ShifterStates.HIGH)
+            Drivetrain.shift(Drivetrain.ShifterStates.LOW)
         }
     }
 }

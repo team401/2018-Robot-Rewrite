@@ -1,9 +1,6 @@
 package org.team401.rewrite2018.subsystems
 
-import com.ctre.phoenix.motorcontrol.ControlMode
-import com.ctre.phoenix.motorcontrol.FeedbackDevice
-import com.ctre.phoenix.motorcontrol.IMotorController
-import com.ctre.phoenix.motorcontrol.NeutralMode
+import com.ctre.phoenix.motorcontrol.*
 import com.ctre.phoenix.motorcontrol.can.TalonSRX
 import edu.wpi.first.wpilibj.Solenoid
 import org.snakeskin.component.Gearbox
@@ -12,6 +9,8 @@ import org.snakeskin.component.TankDrivetrain
 import org.snakeskin.component.impl.SmartTankDrivetrain
 import org.snakeskin.dsl.*
 import org.snakeskin.event.Events
+import org.snakeskin.hardware.CTREHardware
+import org.snakeskin.hardware.FRCHardware
 import org.snakeskin.logic.scalars.Scalar
 import org.snakeskin.logic.scalars.ScalarGroup
 import org.snakeskin.logic.scalars.SquareScalar
@@ -27,22 +26,22 @@ import org.team401.rewrite2018.constants.Constants
  * @version 7/21/2018
  *
  */
-object Drivetrain: Subsystem("Drivetrain"), TankDrivetrain<TalonSRX, IMotorController> by SmartTankDrivetrain(
+object Drivetrain: Subsystem("Drivetrain"), TankDrivetrain by SmartTankDrivetrain(
         Measurements.WHEEL_RADIUS,
         Measurements.WHEELBASE,
         Gearbox(
-                TalonSRX(Constants.Drivetrain.DRIVE_LEFT_FRONT_CAN),
-                TalonSRX(Constants.Drivetrain.DRIVE_LEFT_MIDF_CAN),
-                TalonSRX(Constants.Drivetrain.DRIVE_LEFT_MIDR_CAN),
-                TalonSRX(Constants.Drivetrain.DRIVE_LEFT_REAR_CAN)
+                CTREHardware.TalonSRX(Constants.Drivetrain.DRIVE_LEFT_FRONT_CAN),
+                CTREHardware.TalonSRX(Constants.Drivetrain.DRIVE_LEFT_MIDF_CAN),
+                CTREHardware.TalonSRX(Constants.Drivetrain.DRIVE_LEFT_MIDR_CAN),
+                CTREHardware.TalonSRX(Constants.Drivetrain.DRIVE_LEFT_REAR_CAN)
         ),
         Gearbox(
-                TalonSRX(Constants.Drivetrain.DRIVE_RIGHT_FRONT_CAN),
-                TalonSRX(Constants.Drivetrain.DRIVE_RIGHT_MIDF_CAN),
-                TalonSRX(Constants.Drivetrain.DRIVE_RIGHT_MIDR_CAN),
-                TalonSRX(Constants.Drivetrain.DRIVE_RIGHT_REAR_CAN)
+                CTREHardware.TalonSRX(Constants.Drivetrain.DRIVE_RIGHT_FRONT_CAN),
+                CTREHardware.TalonSRX(Constants.Drivetrain.DRIVE_RIGHT_MIDF_CAN),
+                CTREHardware.TalonSRX(Constants.Drivetrain.DRIVE_RIGHT_MIDR_CAN),
+                CTREHardware.TalonSRX(Constants.Drivetrain.DRIVE_RIGHT_REAR_CAN)
         ),
-        TalonPigeonIMU(Constants.Drivetrain.DRIVE_LEFT_REAR_CAN)
+        CTREHardware.TalonPigeonIMU(Constants.Drivetrain.DRIVE_LEFT_REAR_CAN)
 ) {
     //State enums
     enum class DriveStates {
@@ -56,7 +55,11 @@ object Drivetrain: Subsystem("Drivetrain"), TankDrivetrain<TalonSRX, IMotorContr
     )
 
     //Hardware
-    private val shifter = Solenoid(Constants.Drivetrain.SHIFTER_SOLENOID)
+    private val shifter = FRCHardware.Solenoid(Constants.Drivetrain.SHIFTER_SOLENOID)
+
+    fun shift(value: Boolean) {
+        shifter.set(value)
+    }
 
     override fun setup() {
         left.setInverted(Constants.Drivetrain.INVERT_LEFT)
@@ -123,12 +126,10 @@ object Drivetrain: Subsystem("Drivetrain"), TankDrivetrain<TalonSRX, IMotorContr
                         cheesyParameters,
                         LeftStick.readAxis { PITCH },
                         RightStick.readAxis { ROLL },
-                        shiftMachine.isInState(ShifterStates.HIGH),
+                        shifter.get(),
                         RightStick.readButton { TRIGGER }
                 )
             }
         }
     }
-
-    val shiftMachine = pistonCommandMachine(shifter)
 }
