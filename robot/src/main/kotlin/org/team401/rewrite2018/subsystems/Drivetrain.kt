@@ -1,10 +1,7 @@
 package org.team401.rewrite2018.subsystems
 
 import com.ctre.phoenix.motorcontrol.*
-import com.ctre.phoenix.motorcontrol.can.TalonSRX
-import edu.wpi.first.wpilibj.Solenoid
 import org.snakeskin.component.Gearbox
-import org.snakeskin.component.TalonPigeonIMU
 import org.snakeskin.component.TankDrivetrain
 import org.snakeskin.component.impl.SmartTankDrivetrain
 import org.snakeskin.dsl.*
@@ -50,8 +47,8 @@ object Drivetrain: Subsystem("Drivetrain"), TankDrivetrain by SmartTankDrivetrai
     }
 
     val ShifterStates = ShifterState(
-            Constants.Drivetrain.SOLENOID_ON_FOR_SHIFTER_EXTENDED,
-            Constants.Drivetrain.SHIFTER_EXTENDED_FOR_LOW_GEAR
+            Constants.Drivetrain.DRIVETRAIN_SOLENOID_ON_FOR_SHIFTER_EXTENDED,
+            Constants.Drivetrain.DRIVETRAIN_SHIFTER_EXTENDED_FOR_LOW_GEAR
     )
 
     //Hardware

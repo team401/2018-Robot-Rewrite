@@ -1,7 +1,7 @@
 plugins {
 	id "edu.wpi.first.GradleRIO" version "2019.0.0-alpha-3" apply false
 	id "org.jetbrains.kotlin.jvm" version "1.2.60" apply false
-	id "org.snakeskin.snakeskin-gradle" version "1.1" apply false
+	id "org.snakeskin.snakeskin-gradle" version "1.2" apply false
 }
 
 allprojects {
@@ -16,11 +16,15 @@ subprojects {
 	
 	repositories {
 		mavenCentral()
+
+		maven {
+			url "http://clojars.org/repo"
+		}
 	}
 	
 	dependencies {
 		compile "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
-	}
+    }
 	
 	sourceCompatibility = 1.8
 	

@@ -1,4 +1,5 @@
 apply plugin: "org.snakeskin.snakeskin-gradle"
+
 apply plugin: "edu.wpi.first.GradleRIO"
 
 deploy {
@@ -30,7 +31,7 @@ dependencies {
 }
 
 snakeskin {
-    version "2.0b1"
+    version "2.0b2"
     modules {
         core()
         frc()

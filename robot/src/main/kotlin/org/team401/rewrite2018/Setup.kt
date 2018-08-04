@@ -1,8 +1,9 @@
 package org.team401.rewrite2018
 
 import com.google.gson.Gson
+import org.snakeskin.annotation.Setup
 import org.snakeskin.debug.DebuggerShell
-import org.snakeskin.dsl.*
+import org.snakeskin.dsl.Subsystems
 import org.snakeskin.registry.Controllers
 import org.snakeskin.registry.RealTimeTasks
 import org.snakeskin.rt.RealTimeExecutor
@@ -26,7 +27,7 @@ fun setup() {
 
     RealTimeExecutor.rate = .005
 
-    Controllers.add(LeftStick, RightStick)
+    Controllers.add(LeftStick, RightStick, Gamepad)
     Subsystems.add(Drivetrain)
 
     //RealTimeTasks.add(RobotStateUpdater(Drivetrain, RobotState, Kinematics))
