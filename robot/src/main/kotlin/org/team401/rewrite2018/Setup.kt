@@ -7,7 +7,6 @@ import org.snakeskin.dsl.Subsystems
 import org.snakeskin.registry.Controllers
 import org.snakeskin.registry.RealTimeTasks
 import org.snakeskin.rt.RealTimeExecutor
-import org.team401.autolib.RobotStateUpdater
 import org.team401.rewrite2018.constants.CompBotMeasurements
 import org.team401.rewrite2018.constants.IMeasurements
 import org.team401.rewrite2018.subsystems.Drivetrain

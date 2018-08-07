@@ -2,7 +2,6 @@ package com.team254.lib.util;
 
 /**
  * An iterative boolean latch that delays the transition from false to true.
- *
  */
 public class DelayedBoolean {
     private boolean mLastValue;

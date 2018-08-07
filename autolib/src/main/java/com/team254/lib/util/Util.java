@@ -6,7 +6,12 @@ import java.util.List;
  * Contains basic functions that are used often.
  */
 public class Util {
-    /** Prevent this class from being instantiated. */
+
+    public static final double kEpsilon = 1e-12;
+
+    /**
+     * Prevent this class from being instantiated.
+     */
     private Util() {
     }
 
@@ -21,7 +26,12 @@ public class Util {
         return Math.min(max, Math.max(min, v));
     }
 
-    public static String joinStrings(String delim, List<?> strings) {
+    public static double interpolate(double a, double b, double x) {
+        x = limit(x, 0.0, 1.0);
+        return a + (b - a) * x;
+    }
+
+    public static String joinStrings(final String delim, final List<?> strings) {
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < strings.size(); ++i) {
             sb.append(strings.get(i).toString());
@@ -36,7 +46,15 @@ public class Util {
         return (a - epsilon <= b) && (a + epsilon >= b);
     }
 
-    public static boolean allCloseTo(List<Double> list, double value, double epsilon) {
+    public static boolean epsilonEquals(double a, double b) {
+        return epsilonEquals(a, b, kEpsilon);
+    }
+
+    public static boolean epsilonEquals(int a, int b, int epsilon) {
+        return (a - epsilon <= b) && (a + epsilon >= b);
+    }
+
+    public static boolean allCloseTo(final List<Double> list, double value, double epsilon) {
         boolean result = true;
         for (Double value_in : list) {
             result &= epsilonEquals(value_in, value, epsilon);

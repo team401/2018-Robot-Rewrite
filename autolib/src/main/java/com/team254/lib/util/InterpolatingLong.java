@@ -2,7 +2,7 @@ package com.team254.lib.util;
 
 /**
  * A Long that can be interpolated using the InterpolatingTreeMap.
- * 
+ *
  * @see InterpolatingTreeMap
  */
 public class InterpolatingLong implements Interpolable<InterpolatingLong>, InverseInterpolable<InterpolatingLong>,
