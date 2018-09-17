@@ -1,5 +1,6 @@
 package org.team401.rewrite2018.constants
 
+import org.snakeskin.template.TankDrivetrainGeometryTemplate
 import org.snakeskin.units.measure.distance.linear.LinearDistanceMeasure
 
 /**
@@ -8,6 +9,5 @@ import org.snakeskin.units.measure.distance.linear.LinearDistanceMeasure
  *
  */
 interface IMeasurements {
-    val WHEEL_RADIUS: LinearDistanceMeasure
-    val WHEELBASE: LinearDistanceMeasure
+    val driveGeometry: TankDrivetrainGeometryTemplate
 }

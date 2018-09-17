@@ -1,13 +1,14 @@
 package org.team401.rewrite2018.subsystems
 
 import com.ctre.phoenix.motorcontrol.*
+import com.ctre.phoenix.motorcontrol.can.TalonSRX
+import edu.wpi.first.wpilibj.Solenoid
 import org.snakeskin.component.Gearbox
+import org.snakeskin.component.TalonPigeonIMU
 import org.snakeskin.component.TankDrivetrain
 import org.snakeskin.component.impl.SmartTankDrivetrain
 import org.snakeskin.dsl.*
 import org.snakeskin.event.Events
-import org.snakeskin.hardware.CTREHardware
-import org.snakeskin.hardware.FRCHardware
 import org.snakeskin.logic.scalars.Scalar
 import org.snakeskin.logic.scalars.ScalarGroup
 import org.snakeskin.logic.scalars.SquareScalar
@@ -17,32 +18,43 @@ import org.team401.rewrite2018.LeftStick
 import org.team401.rewrite2018.Measurements
 import org.team401.rewrite2018.RightStick
 import org.team401.rewrite2018.constants.Constants
+import org.team401.taxis.diffdrive.component.PathFollowingDiffDrive
+import org.team401.taxis.diffdrive.component.impl.SmartPathFollowingDiffDrive
+import org.team401.taxis.diffdrive.control.DrivetrainPathManager
+import org.team401.taxis.diffdrive.control.NoOpPathController
+import org.team401.taxis.diffdrive.control.NonlinearFeedbackPathController
+import org.team401.taxis.geometry.Pose2d
+import org.team401.taxis.geometry.Rotation2d
+import org.team401.taxis.geometry.Translation2d
 
 /**
  * @author Cameron Earle
  * @version 7/21/2018
  *
  */
-object Drivetrain: Subsystem("Drivetrain"), TankDrivetrain by SmartTankDrivetrain(
-        Measurements.WHEEL_RADIUS,
-        Measurements.WHEELBASE,
+object Drivetrain: Subsystem(), PathFollowingDiffDrive by SmartPathFollowingDiffDrive(
+        Measurements.driveGeometry,
+        Measurements.DriveDynamics,
+        Measurements.DrivePathFollowing,
         Gearbox(
-                CTREHardware.TalonSRX(Constants.Drivetrain.DRIVE_LEFT_FRONT_CAN),
-                CTREHardware.TalonSRX(Constants.Drivetrain.DRIVE_LEFT_MIDF_CAN),
-                CTREHardware.TalonSRX(Constants.Drivetrain.DRIVE_LEFT_MIDR_CAN),
-                CTREHardware.TalonSRX(Constants.Drivetrain.DRIVE_LEFT_REAR_CAN)
+                TalonSRX(Constants.Drivetrain.DRIVE_LEFT_FRONT_CAN),
+                TalonSRX(Constants.Drivetrain.DRIVE_LEFT_MIDF_CAN),
+                TalonSRX(Constants.Drivetrain.DRIVE_LEFT_MIDR_CAN),
+                TalonSRX(Constants.Drivetrain.DRIVE_LEFT_REAR_CAN)
         ),
         Gearbox(
-                CTREHardware.TalonSRX(Constants.Drivetrain.DRIVE_RIGHT_FRONT_CAN),
-                CTREHardware.TalonSRX(Constants.Drivetrain.DRIVE_RIGHT_MIDF_CAN),
-                CTREHardware.TalonSRX(Constants.Drivetrain.DRIVE_RIGHT_MIDR_CAN),
-                CTREHardware.TalonSRX(Constants.Drivetrain.DRIVE_RIGHT_REAR_CAN)
+                TalonSRX(Constants.Drivetrain.DRIVE_RIGHT_FRONT_CAN),
+                TalonSRX(Constants.Drivetrain.DRIVE_RIGHT_MIDF_CAN),
+                TalonSRX(Constants.Drivetrain.DRIVE_RIGHT_MIDR_CAN),
+                TalonSRX(Constants.Drivetrain.DRIVE_RIGHT_REAR_CAN)
         ),
-        CTREHardware.TalonPigeonIMU(Constants.Drivetrain.DRIVE_LEFT_REAR_CAN)
+        TalonPigeonIMU(Constants.Drivetrain.DRIVE_LEFT_REAR_CAN),
+        NoOpPathController()
 ) {
     //State enums
     enum class DriveStates {
         EXTERNAL_CONTROL,
+        PATH_FOLLOWING,
         OPEN_LOOP
     }
 
@@ -52,7 +64,7 @@ object Drivetrain: Subsystem("Drivetrain"), TankDrivetrain by SmartTankDrivetrai
     )
 
     //Hardware
-    private val shifter = FRCHardware.Solenoid(Constants.Drivetrain.SHIFTER_SOLENOID)
+    private val shifter = Solenoid(Constants.Drivetrain.SHIFTER_SOLENOID)
 
     fun shift(value: Boolean) {
         shifter.set(value)
@@ -91,6 +103,20 @@ object Drivetrain: Subsystem("Drivetrain"), TankDrivetrain by SmartTankDrivetrai
 
     val driveMachine: StateMachine<DriveStates> = stateMachine {
         state(DriveStates.EXTERNAL_CONTROL) {}
+        
+        state(DriveStates.PATH_FOLLOWING) {
+            entry {
+                //TODO what do I put here
+            }
+
+            rtAction {
+                println(pathManager.update(time, Pose2d.identity())) //We'll make this useful later
+                if (pathManager.isDone()) {
+                    //Drop into open loop i guess?
+                    setState(DriveStates.OPEN_LOOP)
+                }
+            }
+        }
 
         state(DriveStates.OPEN_LOOP) {
             val cheesyParameters = CheesyDriveParameters(
@@ -115,6 +141,14 @@ object Drivetrain: Subsystem("Drivetrain"), TankDrivetrain by SmartTankDrivetrai
 
             entry {
                 cheesyParameters.reset()
+                setRampRate(
+                        Constants.Drivetrain.CLOSED_LOOP_RAMP_RATE,
+                        Constants.Drivetrain.OPEN_LOOP_RAMP_RATE
+                )
+                setPose(Pose2d(
+                        Translation2d.identity(),
+                        Rotation2d.identity()
+                ))
             }
 
             action {
@@ -126,6 +160,7 @@ object Drivetrain: Subsystem("Drivetrain"), TankDrivetrain by SmartTankDrivetrai
                         shifter.get() == ShifterStates.HIGH,
                         RightStick.readButton { TRIGGER }
                 )
+                println(driveState.getLatestFieldToVehicle().value)
             }
         }
     }
