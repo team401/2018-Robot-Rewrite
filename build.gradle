@@ -21,7 +21,7 @@ subprojects {
 			url "http://clojars.org/repo"
 		}
 
-		maven { url 'https://jitpack.io' }
+		maven { url 'http://jitpack.io' }
 	}
 	
 	dependencies {

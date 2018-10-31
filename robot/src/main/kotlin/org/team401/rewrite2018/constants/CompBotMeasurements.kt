@@ -14,20 +14,20 @@ import org.team401.taxis.template.PathFollowingTemplate
  */
 object CompBotMeasurements: IMeasurements {
     val DriveDynamics = object : DriveDynamicsTemplate {
-        override val angularDrag = 0.0
-        override val inertialMass = 0.0
+        override val angularDrag = 12.0
+        override val inertialMass = 60.100989
         
-        override val kA = 0.0 
-        override val kS = 0.0
-        override val kV = 0.0
-        override val momentOfInertia = 0.0
+        override val kA = 0.01655405151652051
+        override val kS = 0.6810971436081995
+        override val kV = 0.14776571374723177
+        override val momentOfInertia = 5.685424594925042090666757228464752396376105722936596724368
         override val trackScrubFactor = 1.0779845191991568
     }
 
     val DrivePathFollowing = object : PathFollowingTemplate {
-        override val maxErrorTheta = 0.0
-        override val maxErrorX = 0.0
-        override val maxErrorY = 0.0
+        override val maxErrorTheta = Math.toRadians(5.0)
+        override val maxErrorX = 2.0
+        override val maxErrorY = 0.25
     }
 
 
