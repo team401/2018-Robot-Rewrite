@@ -39,9 +39,7 @@ class MeasureStiction(val drivetrain: TankDrivetrain, val power: Double, val ram
         rec.record("percent", percentOutput)
         rec.record("vbus", (drivetrain.left.master.busVoltage + drivetrain.right.master.busVoltage) / 2.0)
         rec.record("voltage", (drivetrain.left.master.motorOutputVoltage + drivetrain.right.master.motorOutputVoltage) / 2.0)
-        rec.record("vel", (drivetrain.left.getVelocity().toLinearVelocity(Measurements.driveGeometry.wheelRadius) +
-                drivetrain.right.getVelocity().toLinearVelocity(Measurements.driveGeometry.wheelRadius))
-                .toUnit(FeetPerSecond).value / 2.0)
+        rec.record("vel", (drivetrain.left.getVelocity() + drivetrain.right.getVelocity()).toUnit(RadiansPerSecond).value / 2.0)
 
         return false
     }

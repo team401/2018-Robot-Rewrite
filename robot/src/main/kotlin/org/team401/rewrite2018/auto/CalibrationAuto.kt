@@ -11,6 +11,6 @@ import org.team401.rewrite2018.subsystems.Drivetrain
  */
 object CalibrationAuto: RobotAuto(10L) {
     override fun assembleAuto(): SequentialSteps {
-        return SequentialSteps(MeasureStiction(Drivetrain, .2, .02))
+        return SequentialSteps(MeasureStiction(Drivetrain, .3, .02))
     }
 }
